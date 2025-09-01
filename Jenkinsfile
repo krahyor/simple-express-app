@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/krahyor/simple-express-app.git'
+                git branch: 'lab', url: 'https://github.com/krahyor/simple-express-app.git'
             }
         }
 
