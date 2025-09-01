@@ -11,6 +11,8 @@ pipeline {
 
         stage('Build') {
             steps {
+                sh 'apt update'
+                sh 'apt install npm'
                 sh 'npm install'
             }
         }
