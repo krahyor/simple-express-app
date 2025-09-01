@@ -1,6 +1,11 @@
 pipeline {
 
-    agent any
+    agent {
+        docker {
+            image 'node:18'
+            args '-u root:root'
+        }
+    }
 
     stages {
         stage('Checkout') {
@@ -11,8 +16,6 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'apt update'
-                sh 'apt install npm'
                 sh 'npm install'
             }
         }
