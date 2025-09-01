@@ -1,25 +1,31 @@
+
 const express = require("express");
 const mysql = require("mysql");
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 3000;
 
-// MySQL database connection configuration
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "username", // แทนที่ด้วยชื่อผู้ใช้ MySQL ของคุณ
-  password: "password", // แทนที่ด้วยรหัสผ่าน MySQL ของคุณ
-  database: "database_name" // แทนที่ด้วยชื่อฐานข้อมูลที่คุณต้องการเชื่อมต่อ
-});
+// MySQL database connection configuration using environment variables
+const dbConfig = {
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "username",
+  password: process.env.DB_PASSWORD || "password",
+  database: process.env.DB_NAME || "database_name"
+};
 
-// Connect to MySQL database
-connection.connect((err) => {
-  if (err) {
-    console.error('Error connecting to MySQL database: ' + err.stack);
-    return;
-  }
-  console.log('Connected to MySQL database as id ' + connection.threadId);
-});
+let connection;
+try {
+  connection = mysql.createConnection(dbConfig);
+  connection.connect((err) => {
+    if (err) {
+      console.warn('Warning: Could not connect to MySQL database: ' + err.stack);
+    } else {
+      console.log('Connected to MySQL database as id ' + connection.threadId);
+    }
+  });
+} catch (err) {
+  console.warn('Warning: MySQL connection setup failed:', err);
+}
 
 // Middleware to log request method and URL
 app.use((req, res, next) => {
