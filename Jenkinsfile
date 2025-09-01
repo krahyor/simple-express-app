@@ -1,6 +1,9 @@
 pipeline {
-
     agent any
+
+    environment {
+        SONARQUBE = credentials('sonarqube-token')
+    }
 
     stages {
         stage('Checkout') {
@@ -17,11 +20,9 @@ pipeline {
 
         stage('SonarQube Scan') {
             steps {
-                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                        withSonarQubeEnv('SonarQube') {
-                            sh 'npx sonar-scanner -Dsonar.projectKey=mywebapp -Dsonar.login=$SONAR_TOKEN'
-                        }
-                    }
+                withSonarQubeEnv('SonarQube') {
+                    sh 'npx sonar-scanner -Dsonar.projectKey=mywebapp'
+                }
             }
         }
 
