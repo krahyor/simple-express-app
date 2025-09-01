@@ -1,9 +1,6 @@
 pipeline {
-    agent any
 
-    environment {
-        SONARQUBE = credentials('sonar-token') // ชื่อ Credential ของ Jenkins
-    }
+    agent any
 
     stages {
         stage('Checkout') {
@@ -20,9 +17,11 @@ pipeline {
 
         stage('SonarQube Scan') {
             steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh 'npx sonar-scanner -Dsonar.projectKey=mywebapp'
-                }
+                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                        withSonarQubeEnv('SonarQube') {
+                            sh 'npx sonar-scanner -Dsonar.projectKey=mywebapp -Dsonar.login=$SONAR_TOKEN'
+                        }
+                    }
             }
         }
 
