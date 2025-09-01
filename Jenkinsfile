@@ -23,13 +23,7 @@ pipeline {
         stage('SonarQube Scan') {
             steps {
                 withSonarQubeEnv('sonarqube-25.8.0') {
-                    sh """
-                    npx sonar-scanner \
-                        -Dsonar.projectKey=jenkins-sonarqube \
-                        -Dsonar.projectName='jenkins-sonarqube' \
-                        -Dsonar.host.url=http://sonarqube:9000 \
-                        -Dsonar.login=$SONARQUBE
-                    """
+                    sh 'npx sonar-scanner -Dsonar.projectKey=jenkins-sonarqube'
                 }
             }
         }
