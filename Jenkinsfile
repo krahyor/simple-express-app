@@ -22,7 +22,7 @@ pipeline {
 
         stage('SonarQube Scan') {
             steps {
-                withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('sonarqube-25.8.0') {
                     sh 'npx sonar-scanner -Dsonar.projectKey=jenkins-sonarqube'
                 }
             }
