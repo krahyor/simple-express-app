@@ -8,7 +8,7 @@ const port = 4000;
 const connection = mysql.createConnection({
   host: "localhost",
   user: "username", // แทนที่ด้วยชื่อผู้ใช้ MySQL ของคุณ
-  password: "password", // แทนที่ด้วยรหัสผ่าน MySQL ของคุณ
+  password: "P@SSword", // แทนที่ด้วยรหัสผ่าน MySQL ของคุณ
   database: "database_name" // แทนที่ด้วยชื่อฐานข้อมูลที่คุณต้องการเชื่อมต่อ
 });
 
