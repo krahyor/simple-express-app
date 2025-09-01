@@ -3,9 +3,9 @@ pipeline {
     tools {
         nodejs "Nodejs-24.7.0"
     }
-    // Credentials are injected automatically by withSonarQubeEnv('SonarQube').
-    // If you need manual token access (not recommended), reintroduce:
-    // environment { SONAR_TOKEN = credentials('sonarqube-token') }
+    environment {
+        SONARQUBE = credentials('sonarqube-token')
+    }
 
     stages {
         stage('Checkout') {
@@ -23,8 +23,7 @@ pipeline {
         stage('SonarQube Scan') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    // sonar-project.properties can hold most settings; specify key/sources if empty.
-                    sh 'npx sonar-scanner -Dsonar.projectKey=mywebapp -Dsonar.sources=.'
+                    sh 'npx sonar-scanner -Dsonar.projectKey=jenkins-sonarqube'
                 }
             }
         }
