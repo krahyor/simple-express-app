@@ -4,6 +4,9 @@ const mysql = require("mysql");
 const app = express();
 const port = 4000;
 
+let test = 0;
+let test2 = 0;
+
 // MySQL database connection configuration
 const connection = mysql.createConnection({
   host: "localhost",
@@ -36,3 +39,7 @@ app.get("/about", (req, res) => {
   res.send("About page");
 });
 
+
+void test(){
+  
+}
