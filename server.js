@@ -6,7 +6,6 @@ const port = 4000;
 
 let test = 0;
 let test2 = 0;
-// Intentionally keep the two unused variables above to produce exactly two Sonar code smells (unused variables)
 
 // MySQL database connection configuration
 const connection = mysql.createConnection({
